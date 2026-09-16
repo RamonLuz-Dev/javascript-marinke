@@ -1,17 +1,6 @@
 const Produto = require("../models/produto.model");
 
-const produtos = [
-    new Produto({
-        id: 1,
-        nome: "Notebook",
-        preco: 3500
-    }),
-    new Produto({
-        id: 2,
-        nome: "Mouse",
-        preco: 120
-    })
-];
+const produtos = Produto.produtos;
 
 function listar() {
     return produtos;
