@@ -1,13 +1,7 @@
-const produtos = [
-    {
-        id: 1, nome: "Notebook", preco: 3500
-    }
-];
-
-const service = require ("../services/produto.service");
+const service = require("../services/produto.service");
 
 exports.listar = (req, res) => {
-    res.json(produtos);
+    res.status(200).json(service.listar());
 };
 
 exports.buscarPorId = (req, res) => {
@@ -18,11 +12,17 @@ exports.buscarPorId = (req, res) => {
             mensagem: "Produto não encontrado"
         });
     }
+
     res.status(200).json(produto);
 };
 
 exports.criar = (req, res) => {
-    const produto = {id: 2, ...req.body};
-    produtos.push(produto);
-    res.status(201).json(produto);
+    try {
+        const produto = service.criar(req.body);
+        res.status(201).json(produto);
+    } catch (erro) {
+        res.status(400).json({
+            mensagem: erro.message
+        });
+    }
 };
